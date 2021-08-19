@@ -4,6 +4,7 @@ const cors = require("cors");
 
 
 const path = __dirname + '/app/views/';
+
 const app = express();
 
 app.use(express.static(path));
@@ -23,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //mongodb
 const db = require("./app/models");
 
-// db.sequelize.sync();
+//db.sequelize.sync();
 
 app.get('/', function (req,res) {
   res.sendFile(path + "index.html");
