@@ -2,7 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+
+const path = __dirname + '/app/views/';
 const app = express();
+
+app.use(express.static(path));
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -18,6 +22,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //mongodb
 const db = require("./app/models");
+
+// db.sequelize.sync();
+
+app.get('/', function (req,res) {
+  res.sendFile(path + "index.html");
+});
+
+
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -30,6 +42,8 @@ db.mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
+
+
 
 // simple route
 app.get("/", (req, res) => {
